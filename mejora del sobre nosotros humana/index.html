@@ -1,0 +1,1746 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Humana Políticas Digitales</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              "neon-cyan": "#00d4ff",
+              "neon-purple": "#8b5cf6",
+              "neon-magenta": "#a855f7",
+              "neon-blue": "#3b82f6",
+              "dark-bg": "#0a0a0f",
+              "dark-card": "#12121a",
+              "dark-muted": "#1a1a24",
+              "dark-border": "#27272f",
+            },
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+              display: ["Orbitron", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background-color: #0a0a0f;
+        color: #e4e4e7;
+        font-family: "Inter", sans-serif;
+        overflow-x: hidden;
+      }
+
+      /* Scrollbar personalizado */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #0a0a0f;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #8b5cf6;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #00d4ff;
+      }
+
+      /* Efectos de glow */
+      .glow-cyan {
+        text-shadow: 0 0 10px #00d4ff, 0 0 20px #00d4ff, 0 0 40px #00d4ff;
+      }
+      .glow-purple {
+        text-shadow: 0 0 10px #8b5cf6, 0 0 20px #8b5cf6, 0 0 40px #8b5cf6;
+      }
+      .box-glow-cyan {
+        box-shadow: 0 0 20px rgba(0, 212, 255, 0.3),
+          0 0 40px rgba(0, 212, 255, 0.1);
+      }
+      .box-glow-purple {
+        box-shadow: 0 0 20px rgba(139, 92, 246, 0.3),
+          0 0 40px rgba(139, 92, 246, 0.1);
+      }
+
+      /* Animaciones */
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+      }
+      @keyframes pulse-glow {
+        0%,
+        100% {
+          opacity: 0.5;
+        }
+        50% {
+          opacity: 1;
+        }
+      }
+      @keyframes orbit {
+        from {
+          transform: rotate(0deg) translateX(100px) rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg) translateX(100px) rotate(-360deg);
+        }
+      }
+      .animate-float {
+        animation: float 6s ease-in-out infinite;
+      }
+      .animate-pulse-glow {
+        animation: pulse-glow 3s ease-in-out infinite;
+      }
+      .animate-orbit {
+        animation: orbit 15s linear infinite;
+      }
+
+      /* Fondo con grid */
+      .bg-grid {
+        background-image: linear-gradient(
+            rgba(0, 212, 255, 0.03) 1px,
+            transparent 1px
+          ),
+          linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
+        background-size: 50px 50px;
+      }
+
+      /* Glassmorphism */
+      .glass {
+        background: rgba(18, 18, 26, 0.8);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(0, 212, 255, 0.1);
+      }
+
+      /* Gradientes */
+      .gradient-text {
+        background: linear-gradient(
+          135deg,
+          #00d4ff 0%,
+          #8b5cf6 50%,
+          #a855f7 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      /* Cards con hover */
+      .card-hover {
+        transition: all 0.3s ease;
+      }
+      .card-hover:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 0 30px rgba(0, 212, 255, 0.4);
+        border-color: #00d4ff;
+      }
+
+      /* Botones neón */
+      .btn-neon {
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s ease;
+      }
+      .btn-neon::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: left 0.5s ease;
+      }
+      .btn-neon:hover::before {
+        left: 100%;
+      }
+      .btn-neon:hover {
+        box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+      }
+
+      /* Orbes decorativos */
+      .orb {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(80px);
+        pointer-events: none;
+      }
+
+      /* Líneas decorativas */
+      .line-glow {
+        height: 1px;
+        background: linear-gradient(90deg, transparent, #00d4ff, transparent);
+      }
+
+      /* Menu mobile */
+      .mobile-menu {
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+      }
+      .mobile-menu.active {
+        transform: translateX(0);
+      }
+    </style>
+  </head>
+
+  <body class="bg-grid">
+    <!-- HEADER -->
+    <header class="fixed top-0 left-0 right-0 z-50 glass">
+      <nav class="max-w-7xl mx-auto px-6 py-4">
+        <div class="flex items-center justify-between">
+          <!-- Logo -->
+          <a href="#" class="flex items-center gap-3">
+            <div
+              class="w-10 h-10 rounded-lg bg-gradient-to-br from-neon-cyan to-neon-purple flex items-center justify-center"
+            >
+              <svg
+                class="w-6 h-6 text-dark-bg"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M13 10V3L4 14h7v7l9-11h-7z"
+                />
+              </svg>
+            </div>
+            <span class="font-display font-bold text-xl text-white"
+              >HUMANA</span
+            >
+          </a>
+
+          <!-- Nav Desktop -->
+          <ul class="hidden md:flex items-center gap-8">
+            <li>
+              <a
+                href="#inicio"
+                class="text-gray-300 hover:text-neon-cyan transition-colors"
+                >Inicio</a
+              >
+            </li>
+            <li>
+              <a
+                href="productos.html"
+                class="text-gray-300 hover:text-neon-cyan transition-colors"
+                >Productos</a
+              >
+            </li>
+            <li>
+              <a
+                href="#nosotros"
+                class="text-gray-300 hover:text-neon-cyan transition-colors"
+                >Nosotros</a
+              >
+            </li>
+            <li>
+              <a
+                href="#filosofia"
+                class="text-gray-300 hover:text-neon-cyan transition-colors"
+                >Filosofia</a
+              >
+            </li>
+            <li>
+              <a
+                href="#did"
+                class="text-gray-300 hover:text-neon-cyan transition-colors"
+                >DID</a
+              >
+            </li>
+
+            <li>
+              <a
+                href="revista.html"
+                class="text-gray-300 hover:text-neon-cyan transition-colors"
+                >Revista</a
+              >
+            </li>
+          </ul>
+
+          <!-- CTA Button -->
+          <div class="hidden md:block">
+            <a
+              href="#contacto"
+              class="btn-neon px-6 py-2.5 bg-neon-cyan text-dark-bg font-semibold rounded-lg"
+            >
+              Comenzar
+            </a>
+          </div>
+
+          <!-- Mobile Menu Button -->
+          <button id="menuBtn" class="md:hidden text-white p-2">
+            <svg
+              class="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+          </button>
+        </div>
+      </nav>
+
+      <!-- Mobile Menu -->
+      <div
+        id="mobileMenu"
+        class="mobile-menu fixed top-0 right-0 h-screen w-64 bg-dark-card border-l border-dark-border p-6 md:hidden"
+      >
+        <button
+          id="closeMenu"
+          class="absolute top-4 right-4 text-gray-400 hover:text-white"
+        >
+          <svg
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+        <ul class="mt-12 space-y-6">
+          <li>
+            <a href="#inicio" class="text-lg text-gray-300 hover:text-neon-cyan"
+              >Inicio</a
+            >
+          </li>
+          <li>
+            <a
+              href="productos.html"
+              class="text-lg text-gray-300 hover:text-neon-cyan"
+              >Productos</a
+            >
+          </li>
+          <li>
+            <a
+              href="#nosotros"
+              class="text-lg text-gray-300 hover:text-neon-cyan"
+              >Nosotros</a
+            >
+          </li>
+          <li>
+            <a
+              href="#filosofia"
+              class="text-lg text-gray-300 hover:text-neon-cyan"
+              >Filosofia</a
+            >
+          </li>
+          <li>
+            <a href="#did" class="text-lg text-gray-300 hover:text-neon-cyan"
+              >DID</a
+            >
+          </li>
+        </ul>
+      </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section
+      id="inicio"
+      class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden"
+    >
+      <!-- Orbes decorativos -->
+      <div
+        class="orb w-96 h-96 bg-neon-cyan/20 top-20 -left-48 animate-pulse-glow"
+      ></div>
+      <div
+        class="orb w-80 h-80 bg-neon-purple/20 bottom-20 -right-40 animate-pulse-glow"
+        style="animation-delay: 1.5s"
+      ></div>
+
+      <div class="relative z-10 max-w-6xl mx-auto px-6 text-center">
+        <!-- Badge -->
+        <div
+          class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-neon-cyan/30 bg-neon-cyan/5 mb-8"
+        >
+          <span class="w-2 h-2 rounded-full bg-neon-cyan animate-pulse"></span>
+          <span class="text-sm text-neon-cyan">Plataforma Innovadora</span>
+        </div>
+
+        <!-- Título principal -->
+        <h1
+          class="font-display text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight"
+        >
+          <span class="text-white">Modernizando</span><br />
+          <span class="gradient-text">Las Juntas de</span><br />
+          <span class="text-white">Accion Comunal</span>
+        </h1>
+
+        <!-- Subtítulo -->
+        <p
+          class="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto mb-10 leading-relaxed"
+        >
+          Transformamos la participacion ciudadana con tecnologia blockchain,
+          inteligencia artificial y sistemas de votacion seguros.
+        </p>
+
+        <!-- Botones CTA -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a
+            href="productos.html"
+            class="btn-neon px-8 py-4 bg-neon-cyan text-dark-bg font-semibold rounded-xl text-lg"
+          >
+            Explorar Productos
+          </a>
+          <a
+            href="#nosotros"
+            class="px-8 py-4 border border-neon-purple text-neon-purple font-semibold rounded-xl text-lg hover:bg-neon-purple/10 transition-colors"
+          >
+            Conocer Mas
+          </a>
+        </div>
+
+        <!-- Stats -->
+        <div class="grid grid-cols-3 gap-8 mt-20 max-w-2xl mx-auto">
+          <div class="text-center">
+            <div class="text-4xl font-display font-bold text-neon-cyan mb-2">
+              100K+
+            </div>
+            <div class="text-gray-500">Usuarios Activos</div>
+          </div>
+          <div class="text-center">
+            <div class="text-4xl font-display font-bold text-neon-purple mb-2">
+              500+
+            </div>
+            <div class="text-gray-500">Comunidades</div>
+          </div>
+          <div class="text-center">
+            <div class="text-4xl font-display font-bold text-neon-magenta mb-2">
+              99.9%
+            </div>
+            <div class="text-gray-500">Seguridad</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Flecha scroll -->
+      <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
+        <svg
+          class="w-6 h-6 text-neon-cyan"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M19 14l-7 7m0 0l-7-7m7 7V3"
+          />
+        </svg>
+      </div>
+    </section>
+
+    <!-- PRODUCTOS SECTION -->
+    <section id="productos" class="py-24 relative">
+      <div class="max-w-7xl mx-auto px-6">
+        <!-- Header -->
+        <div class="text-center mb-16">
+          <span
+            class="text-neon-cyan font-semibold tracking-wider uppercase text-sm"
+            >Nuestras Soluciones</span
+          >
+          <h2
+            class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"
+          >
+            Productos <span class="gradient-text">Innovadores</span>
+          </h2>
+          <div class="line-glow w-24 mx-auto"></div>
+        </div>
+
+        <!-- Cards Grid -->
+        <div class="grid md:grid-cols-3 gap-8">
+          <!-- Card 1 - Voto -->
+          <div
+            class="card-hover bg-dark-card border border-dark-border rounded-2xl p-8 relative overflow-hidden group"
+          >
+            <div
+              class="absolute top-0 right-0 w-32 h-32 bg-neon-cyan/10 rounded-full blur-3xl group-hover:bg-neon-cyan/20 transition-all"
+            ></div>
+            <div class="relative z-10">
+              <div
+                class="w-16 h-16 rounded-xl bg-neon-cyan/10 border border-neon-cyan/30 flex items-center justify-center mb-6"
+              >
+                <svg
+                  class="w-8 h-8 text-neon-cyan"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+              </div>
+              <h3 class="text-2xl font-bold text-white mb-4">
+                Sistema de Voto
+              </h3>
+              <p class="text-gray-400 mb-6 leading-relaxed">
+                Votacion electronica segura y transparente utilizando tecnologia
+                blockchain para garantizar la integridad de cada voto.
+              </p>
+              <ul class="space-y-3 mb-8">
+                <li class="flex items-center gap-3 text-gray-300">
+                  <span class="w-1.5 h-1.5 rounded-full bg-neon-cyan"></span>
+                  Verificacion biometrica
+                </li>
+                <li class="flex items-center gap-3 text-gray-300">
+                  <span class="w-1.5 h-1.5 rounded-full bg-neon-cyan"></span>
+                  Resultados en tiempo real
+                </li>
+                <li class="flex items-center gap-3 text-gray-300">
+                  <span class="w-1.5 h-1.5 rounded-full bg-neon-cyan"></span>
+                  Auditoria completa
+                </li>
+              </ul>
+              <a
+                href="#"
+                class="inline-flex items-center gap-2 text-neon-cyan font-semibold hover:gap-4 transition-all"
+              >
+                Conocer mas
+                <svg
+                  class="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"
+                  />
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 2 - IA -->
+          <div
+            class="card-hover bg-dark-card border border-dark-border rounded-2xl p-8 relative overflow-hidden group"
+          >
+            <div
+              class="absolute top-0 right-0 w-32 h-32 bg-neon-purple/10 rounded-full blur-3xl group-hover:bg-neon-purple/20 transition-all"
+            ></div>
+            <div class="relative z-10">
+              <div
+                class="w-16 h-16 rounded-xl bg-neon-purple/10 border border-neon-purple/30 flex items-center justify-center mb-6"
+              >
+                <svg
+                  class="w-8 h-8 text-neon-purple"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+                  />
+                </svg>
+              </div>
+              <h3 class="text-2xl font-bold text-white mb-4">
+                Inteligencia Artificial
+              </h3>
+              <p class="text-gray-400 mb-6 leading-relaxed">
+                Asistentes virtuales y analisis predictivo para mejorar la toma
+                de decisiones comunitarias.
+              </p>
+              <ul class="space-y-3 mb-8">
+                <li class="flex items-center gap-3 text-gray-300">
+                  <span class="w-1.5 h-1.5 rounded-full bg-neon-purple"></span>
+                  Chatbot 24/7
+                </li>
+                <li class="flex items-center gap-3 text-gray-300">
+                  <span class="w-1.5 h-1.5 rounded-full bg-neon-purple"></span>
+                  Analisis de datos
+                </li>
+                <li class="flex items-center gap-3 text-gray-300">
+                  <span class="w-1.5 h-1.5 rounded-full bg-neon-purple"></span>
+                  Recomendaciones inteligentes
+                </li>
+              </ul>
+              <a
+                href="#"
+                class="inline-flex items-center gap-2 text-neon-purple font-semibold hover:gap-4 transition-all"
+              >
+                Conocer mas
+                <svg
+                  class="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"
+                  />
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Card 3 - Blockchain -->
+          <div
+            class="card-hover bg-dark-card border border-dark-border rounded-2xl p-8 relative overflow-hidden group"
+          >
+            <div
+              class="absolute top-0 right-0 w-32 h-32 bg-neon-magenta/10 rounded-full blur-3xl group-hover:bg-neon-magenta/20 transition-all"
+            ></div>
+            <div class="relative z-10">
+              <div
+                class="w-16 h-16 rounded-xl bg-neon-magenta/10 border border-neon-magenta/30 flex items-center justify-center mb-6"
+              >
+                <svg
+                  class="w-8 h-8 text-neon-magenta"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"
+                  />
+                </svg>
+              </div>
+              <h3 class="text-2xl font-bold text-white mb-4">Blockchain</h3>
+              <p class="text-gray-400 mb-6 leading-relaxed">
+                Registros inmutables y contratos inteligentes para una gestion
+                transparente y descentralizada.
+              </p>
+              <ul class="space-y-3 mb-8">
+                <li class="flex items-center gap-3 text-gray-300">
+                  <span class="w-1.5 h-1.5 rounded-full bg-neon-magenta"></span>
+                  Smart Contracts
+                </li>
+                <li class="flex items-center gap-3 text-gray-300">
+                  <span class="w-1.5 h-1.5 rounded-full bg-neon-magenta"></span>
+                  Trazabilidad total
+                </li>
+                <li class="flex items-center gap-3 text-gray-300">
+                  <span class="w-1.5 h-1.5 rounded-full bg-neon-magenta"></span>
+                  Descentralizacion
+                </li>
+              </ul>
+              <a
+                href="#"
+                class="inline-flex items-center gap-2 text-neon-magenta font-semibold hover:gap-4 transition-all"
+              >
+                Conocer mas
+                <svg
+                  class="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"
+                  />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CAMPESINOS TECNOLOGICOS -->
+    <section class="py-24 relative bg-dark-card/50">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="grid lg:grid-cols-2 gap-16 items-center">
+          <!-- Contenido -->
+          <div>
+            <span
+              class="text-neon-purple font-semibold tracking-wider uppercase text-sm"
+              >Inclusion Digital</span
+            >
+            <h2
+              class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"
+            >
+              Campesinos <span class="gradient-text">Tecnologicos</span>
+            </h2>
+            <p class="text-xl text-gray-400 mb-8 leading-relaxed">
+              Empoderamos a las comunidades rurales con herramientas digitales
+              accesibles, cerrando la brecha tecnologica y fortaleciendo la
+              participacion ciudadana.
+            </p>
+
+            <div class="space-y-6">
+              <div class="flex gap-4">
+                <div
+                  class="w-12 h-12 rounded-lg bg-neon-cyan/10 border border-neon-cyan/30 flex items-center justify-center flex-shrink-0"
+                >
+                  <svg
+                    class="w-6 h-6 text-neon-cyan"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"
+                    />
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="text-lg font-semibold text-white mb-2">
+                    Acceso Movil
+                  </h4>
+                  <p class="text-gray-400">
+                    Aplicaciones optimizadas para dispositivos de gama baja y
+                    conexiones limitadas.
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex gap-4">
+                <div
+                  class="w-12 h-12 rounded-lg bg-neon-purple/10 border border-neon-purple/30 flex items-center justify-center flex-shrink-0"
+                >
+                  <svg
+                    class="w-6 h-6 text-neon-purple"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"
+                    />
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="text-lg font-semibold text-white mb-2">
+                    Interfaz por Voz
+                  </h4>
+                  <p class="text-gray-400">
+                    Comandos de voz para usuarios con dificultades de lectura o
+                    escritura.
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex gap-4">
+                <div
+                  class="w-12 h-12 rounded-lg bg-neon-magenta/10 border border-neon-magenta/30 flex items-center justify-center flex-shrink-0"
+                >
+                  <svg
+                    class="w-6 h-6 text-neon-magenta"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                    />
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="text-lg font-semibold text-white mb-2">
+                    Capacitacion Continua
+                  </h4>
+                  <p class="text-gray-400">
+                    Programas de formacion adaptados a diferentes niveles de
+                    experiencia.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Visual -->
+          <div class="relative">
+            <div
+              class="relative bg-dark-card border border-dark-border rounded-3xl p-8 box-glow-purple"
+            >
+              <div class="grid grid-cols-2 gap-4">
+                <div class="bg-dark-muted rounded-2xl p-6 text-center">
+                  <div
+                    class="text-3xl font-display font-bold text-neon-cyan mb-2"
+                  >
+                    85%
+                  </div>
+                  <div class="text-sm text-gray-400">Adopcion Rural</div>
+                </div>
+                <div class="bg-dark-muted rounded-2xl p-6 text-center">
+                  <div
+                    class="text-3xl font-display font-bold text-neon-purple mb-2"
+                  >
+                    200+
+                  </div>
+                  <div class="text-sm text-gray-400">Veredas Conectadas</div>
+                </div>
+                <div class="bg-dark-muted rounded-2xl p-6 text-center">
+                  <div
+                    class="text-3xl font-display font-bold text-neon-magenta mb-2"
+                  >
+                    50K
+                  </div>
+                  <div class="text-sm text-gray-400">Capacitados</div>
+                </div>
+                <div class="bg-dark-muted rounded-2xl p-6 text-center">
+                  <div
+                    class="text-3xl font-display font-bold text-neon-blue mb-2"
+                  >
+                    24/7
+                  </div>
+                  <div class="text-sm text-gray-400">Soporte</div>
+                </div>
+              </div>
+            </div>
+            <!-- Decoraciones -->
+            <div
+              class="absolute -top-4 -right-4 w-24 h-24 border border-neon-cyan/20 rounded-full"
+            ></div>
+            <div
+              class="absolute -bottom-4 -left-4 w-16 h-16 border border-neon-purple/20 rounded-full"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NOSOTROS -->
+    <section id="nosotros" class="py-24 relative">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="grid lg:grid-cols-2 gap-16 items-center">
+          <!-- Visual -->
+          <div class="relative order-2 lg:order-1">
+            <div class="relative">
+              <div
+                class="w-full aspect-square max-w-md mx-auto bg-gradient-to-br from-neon-cyan/20 via-neon-purple/20 to-neon-magenta/20 rounded-3xl flex items-center justify-center"
+              >
+                <div
+                  class="w-3/4 h-3/4 bg-dark-card border border-dark-border rounded-2xl flex items-center justify-center box-glow-cyan"
+                >
+                  <svg
+                    class="w-24 h-24 text-neon-cyan"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="1.5"
+                      d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <!-- Elementos flotantes -->
+              <div
+                class="absolute top-10 -left-4 bg-dark-card border border-neon-cyan/30 rounded-xl p-4 animate-float"
+              >
+                <div class="flex items-center gap-3">
+                  <div
+                    class="w-10 h-10 rounded-full bg-neon-cyan/20 flex items-center justify-center"
+                  >
+                    <svg
+                      class="w-5 h-5 text-neon-cyan"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                  </div>
+                  <span class="text-white font-medium">Transparencia</span>
+                </div>
+              </div>
+              <div
+                class="absolute bottom-10 -right-4 bg-dark-card border border-neon-purple/30 rounded-xl p-4 animate-float"
+                style="animation-delay: 2s"
+              >
+                <div class="flex items-center gap-3">
+                  <div
+                    class="w-10 h-10 rounded-full bg-neon-purple/20 flex items-center justify-center"
+                  >
+                    <svg
+                      class="w-5 h-5 text-neon-purple"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                      />
+                    </svg>
+                  </div>
+                  <span class="text-white font-medium">Seguridad</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contenido -->
+          <div class="order-1 lg:order-2">
+            <span
+              class="text-neon-cyan font-semibold tracking-wider uppercase text-sm"
+              >Quienes Somos</span
+            >
+            <h2
+              class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"
+            >
+              Nuestra <span class="gradient-text">Mision</span>
+            </h2>
+            <p class="text-xl text-gray-400 mb-6 leading-relaxed">
+              Somos un equipo apasionado por la tecnologia y el desarrollo
+              social. Creemos en el poder de la innovacion para transformar
+              comunidades.
+            </p>
+            <p class="text-gray-400 mb-8 leading-relaxed">
+              Nuestra plataforma nace de la necesidad de modernizar los procesos
+              de participacion ciudadana, haciendo que cada voz cuente y cada
+              decision sea transparente. Trabajamos con las juntas de accion
+              comunal para construir un futuro mas democratico y conectado.
+            </p>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div
+                class="bg-dark-card border border-dark-border rounded-xl p-4"
+              >
+                <div
+                  class="text-2xl font-display font-bold text-neon-cyan mb-1"
+                >
+                  2020
+                </div>
+                <div class="text-sm text-gray-400">Ano de Fundacion</div>
+              </div>
+              <div
+                class="bg-dark-card border border-dark-border rounded-xl p-4"
+              >
+                <div
+                  class="text-2xl font-display font-bold text-neon-purple mb-1"
+                >
+                  15+
+                </div>
+                <div class="text-sm text-gray-400">Departamentos</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FILOSOFIA -->
+    <section id="filosofia" class="py-24 relative bg-dark-card/50">
+      <div class="max-w-7xl mx-auto px-6">
+        <!-- Header -->
+        <div class="text-center mb-16">
+          <span
+            class="text-neon-purple font-semibold tracking-wider uppercase text-sm"
+            >Nuestros Valores</span
+          >
+          <h2
+            class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"
+          >
+            Filosofia <span class="gradient-text">Humana</span>
+          </h2>
+          <p class="text-xl text-gray-400 max-w-2xl mx-auto">
+            Principios que guian cada linea de codigo y cada decision que
+            tomamos.
+          </p>
+        </div>
+
+        <!-- Valores Grid -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+          <div
+            class="bg-dark-bg border border-dark-border rounded-2xl p-6 text-center card-hover"
+          >
+            <div
+              class="w-16 h-16 mx-auto mb-4 rounded-full bg-neon-cyan/10 border border-neon-cyan/30 flex items-center justify-center"
+            >
+              <svg
+                class="w-8 h-8 text-neon-cyan"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                />
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                />
+              </svg>
+            </div>
+            <h4 class="text-xl font-bold text-white mb-2">Transparencia</h4>
+            <p class="text-gray-400 text-sm">
+              Cada proceso es visible y auditable por todos los miembros.
+            </p>
+          </div>
+
+          <div
+            class="bg-dark-bg border border-dark-border rounded-2xl p-6 text-center card-hover"
+          >
+            <div
+              class="w-16 h-16 mx-auto mb-4 rounded-full bg-neon-purple/10 border border-neon-purple/30 flex items-center justify-center"
+            >
+              <svg
+                class="w-8 h-8 text-neon-purple"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
+                />
+              </svg>
+            </div>
+            <h4 class="text-xl font-bold text-white mb-2">Inclusion</h4>
+            <p class="text-gray-400 text-sm">
+              Tecnologia accesible para todas las comunidades sin distincion.
+            </p>
+          </div>
+
+          <div
+            class="bg-dark-bg border border-dark-border rounded-2xl p-6 text-center card-hover"
+          >
+            <div
+              class="w-16 h-16 mx-auto mb-4 rounded-full bg-neon-magenta/10 border border-neon-magenta/30 flex items-center justify-center"
+            >
+              <svg
+                class="w-8 h-8 text-neon-magenta"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                />
+              </svg>
+            </div>
+            <h4 class="text-xl font-bold text-white mb-2">Seguridad</h4>
+            <p class="text-gray-400 text-sm">
+              Proteccion de datos con los mas altos estandares de encriptacion.
+            </p>
+          </div>
+
+          <div
+            class="bg-dark-bg border border-dark-border rounded-2xl p-6 text-center card-hover"
+          >
+            <div
+              class="w-16 h-16 mx-auto mb-4 rounded-full bg-neon-blue/10 border border-neon-blue/30 flex items-center justify-center"
+            >
+              <svg
+                class="w-8 h-8 text-neon-blue"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M13 10V3L4 14h7v7l9-11h-7z"
+                />
+              </svg>
+            </div>
+            <h4 class="text-xl font-bold text-white mb-2">Innovacion</h4>
+            <p class="text-gray-400 text-sm">
+              Constantemente evolucionando para ofrecer mejores soluciones.
+            </p>
+          </div>
+        </div>
+
+        <!-- Testimonios -->
+        <div
+          class="bg-dark-bg border border-dark-border rounded-3xl p-8 md:p-12"
+        >
+          <div class="grid md:grid-cols-2 gap-8">
+            <div class="bg-dark-muted rounded-2xl p-6">
+              <div class="flex gap-1 mb-4">
+                <svg
+                  class="w-5 h-5 text-neon-cyan"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                  />
+                </svg>
+                <svg
+                  class="w-5 h-5 text-neon-cyan"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                  />
+                </svg>
+                <svg
+                  class="w-5 h-5 text-neon-cyan"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                  />
+                </svg>
+                <svg
+                  class="w-5 h-5 text-neon-cyan"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                  />
+                </svg>
+                <svg
+                  class="w-5 h-5 text-neon-cyan"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                  />
+                </svg>
+              </div>
+              <p class="text-gray-300 mb-6 italic">
+                "Humana ha transformado completamente la forma en que nuestra
+                comunidad toma decisiones. Ahora todos pueden participar."
+              </p>
+              <div class="flex items-center gap-3">
+                <div
+                  class="w-12 h-12 rounded-full bg-gradient-to-br from-neon-cyan to-neon-purple"
+                ></div>
+                <div>
+                  <div class="font-semibold text-white">Maria Rodriguez</div>
+                  <div class="text-sm text-gray-400">
+                    Presidente JAC - Cundinamarca
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-dark-muted rounded-2xl p-6">
+              <div class="flex gap-1 mb-4">
+                <svg
+                  class="w-5 h-5 text-neon-purple"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                  />
+                </svg>
+                <svg
+                  class="w-5 h-5 text-neon-purple"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                  />
+                </svg>
+                <svg
+                  class="w-5 h-5 text-neon-purple"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                  />
+                </svg>
+                <svg
+                  class="w-5 h-5 text-neon-purple"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                  />
+                </svg>
+                <svg
+                  class="w-5 h-5 text-neon-purple"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                  />
+                </svg>
+              </div>
+              <p class="text-gray-300 mb-6 italic">
+                "La interfaz es tan simple que hasta los mayores de nuestra
+                vereda pueden usarla sin problemas. Increible trabajo."
+              </p>
+              <div class="flex items-center gap-3">
+                <div
+                  class="w-12 h-12 rounded-full bg-gradient-to-br from-neon-purple to-neon-magenta"
+                ></div>
+                <div>
+                  <div class="font-semibold text-white">Carlos Mendez</div>
+                  <div class="text-sm text-gray-400">
+                    Lider Comunitario - Boyaca
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DID - IDENTIDAD DIGITAL -->
+    <section id="did" class="py-24 relative">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="grid lg:grid-cols-2 gap-16 items-center">
+          <!-- Contenido -->
+          <div>
+            <span
+              class="text-neon-magenta font-semibold tracking-wider uppercase text-sm"
+              >Identidad Descentralizada</span
+            >
+            <h2
+              class="font-display text-4xl md:text-5xl font-bold text-white mt-4 mb-6"
+            >
+              Sistema <span class="gradient-text">DID</span>
+            </h2>
+            <p class="text-xl text-gray-400 mb-8 leading-relaxed">
+              Identidad digital descentralizada que te da control total sobre
+              tus datos personales y credenciales verificables sin
+              intermediarios.
+            </p>
+
+            <ul class="space-y-4 mb-8">
+              <li class="flex items-start gap-4">
+                <div
+                  class="w-6 h-6 rounded-full bg-neon-cyan/20 flex items-center justify-center flex-shrink-0 mt-0.5"
+                >
+                  <svg
+                    class="w-4 h-4 text-neon-cyan"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-white">Soberania de Datos</h4>
+                  <p class="text-gray-400 text-sm">
+                    Tu controlas quien accede a tu informacion personal.
+                  </p>
+                </div>
+              </li>
+              <li class="flex items-start gap-4">
+                <div
+                  class="w-6 h-6 rounded-full bg-neon-purple/20 flex items-center justify-center flex-shrink-0 mt-0.5"
+                >
+                  <svg
+                    class="w-4 h-4 text-neon-purple"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-white">
+                    Credenciales Verificables
+                  </h4>
+                  <p class="text-gray-400 text-sm">
+                    Certificados digitales que pueden ser verificados al
+                    instante.
+                  </p>
+                </div>
+              </li>
+              <li class="flex items-start gap-4">
+                <div
+                  class="w-6 h-6 rounded-full bg-neon-magenta/20 flex items-center justify-center flex-shrink-0 mt-0.5"
+                >
+                  <svg
+                    class="w-4 h-4 text-neon-magenta"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-white">Interoperabilidad</h4>
+                  <p class="text-gray-400 text-sm">
+                    Compatible con multiples plataformas y servicios
+                    gubernamentales.
+                  </p>
+                </div>
+              </li>
+              <li class="flex items-start gap-4">
+                <div
+                  class="w-6 h-6 rounded-full bg-neon-blue/20 flex items-center justify-center flex-shrink-0 mt-0.5"
+                >
+                  <svg
+                    class="w-4 h-4 text-neon-blue"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-white">Sin Intermediarios</h4>
+                  <p class="text-gray-400 text-sm">
+                    Verificacion directa peer-to-peer sin terceros de confianza.
+                  </p>
+                </div>
+              </li>
+            </ul>
+
+            <a
+              href="#"
+              class="btn-neon inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-neon-cyan to-neon-purple text-dark-bg font-semibold rounded-xl"
+            >
+              Crear mi DID
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M17 8l4 4m0 0l-4 4m4-4H3"
+                />
+              </svg>
+            </a>
+          </div>
+
+          <!-- Visual DID -->
+          <div class="relative">
+            <div class="relative w-full aspect-square max-w-md mx-auto">
+              <!-- Circulo central -->
+              <div class="absolute inset-0 flex items-center justify-center">
+                <div
+                  class="w-48 h-48 rounded-full bg-gradient-to-br from-neon-cyan/20 via-neon-purple/20 to-neon-magenta/20 border border-neon-cyan/30 flex items-center justify-center box-glow-cyan"
+                >
+                  <div
+                    class="w-32 h-32 rounded-full bg-dark-card border border-neon-purple/30 flex items-center justify-center"
+                  >
+                    <svg
+                      class="w-16 h-16 text-neon-cyan"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="1.5"
+                        d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Orbitas -->
+              <div
+                class="absolute inset-0 rounded-full border border-dashed border-neon-cyan/20"
+              ></div>
+              <div
+                class="absolute inset-8 rounded-full border border-dashed border-neon-purple/20"
+              ></div>
+
+              <!-- Iconos orbitando -->
+              <div
+                class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-2 w-12 h-12 bg-dark-card border border-neon-cyan/30 rounded-xl flex items-center justify-center"
+              >
+                <svg
+                  class="w-6 h-6 text-neon-cyan"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                  />
+                </svg>
+              </div>
+              <div
+                class="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-2 w-12 h-12 bg-dark-card border border-neon-purple/30 rounded-xl flex items-center justify-center"
+              >
+                <svg
+                  class="w-6 h-6 text-neon-purple"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                  />
+                </svg>
+              </div>
+              <div
+                class="absolute top-1/2 left-0 -translate-y-1/2 -translate-x-2 w-12 h-12 bg-dark-card border border-neon-magenta/30 rounded-xl flex items-center justify-center"
+              >
+                <svg
+                  class="w-6 h-6 text-neon-magenta"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"
+                  />
+                </svg>
+              </div>
+              <div
+                class="absolute top-1/2 right-0 -translate-y-1/2 translate-x-2 w-12 h-12 bg-dark-card border border-neon-blue/30 rounded-xl flex items-center justify-center"
+              >
+                <svg
+                  class="w-6 h-6 text-neon-blue"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="py-16 border-t border-dark-border">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+          <!-- Brand -->
+          <div class="lg:col-span-1">
+            <a href="#" class="flex items-center gap-3 mb-6">
+              <div
+                class="w-10 h-10 rounded-lg bg-gradient-to-br from-neon-cyan to-neon-purple flex items-center justify-center"
+              >
+                <svg
+                  class="w-6 h-6 text-dark-bg"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M13 10V3L4 14h7v7l9-11h-7z"
+                  />
+                </svg>
+              </div>
+              <span class="font-display font-bold text-xl text-white"
+                >HUMANA</span
+              >
+            </a>
+            <p class="text-gray-400 mb-6">
+              Transformando la participacion ciudadana con tecnologia
+              innovadora.
+            </p>
+            <div class="flex gap-4">
+              <a
+                href="#"
+                class="w-10 h-10 rounded-lg bg-dark-card border border-dark-border flex items-center justify-center text-gray-400 hover:text-neon-cyan hover:border-neon-cyan/30 transition-colors"
+              >
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"
+                  />
+                </svg>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 rounded-lg bg-dark-card border border-dark-border flex items-center justify-center text-gray-400 hover:text-neon-cyan hover:border-neon-cyan/30 transition-colors"
+              >
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+                  />
+                </svg>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 rounded-lg bg-dark-card border border-dark-border flex items-center justify-center text-gray-400 hover:text-neon-cyan hover:border-neon-cyan/30 transition-colors"
+              >
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+                  />
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Links Productos -->
+          <div>
+            <h4 class="font-semibold text-white mb-6">Productos</h4>
+            <ul class="space-y-4">
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-neon-cyan transition-colors"
+                  >Sistema de Voto</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-neon-cyan transition-colors"
+                  >Inteligencia Artificial</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-neon-cyan transition-colors"
+                  >Blockchain</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-neon-cyan transition-colors"
+                  >Identidad DID</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <!-- Links Empresa -->
+          <div>
+            <h4 class="font-semibold text-white mb-6">Empresa</h4>
+            <ul class="space-y-4">
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-neon-cyan transition-colors"
+                  >Nosotros</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-neon-cyan transition-colors"
+                  >Filosofia</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-neon-cyan transition-colors"
+                  >Blog</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-neon-cyan transition-colors"
+                  >Carreras</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <!-- Links Legal -->
+          <div>
+            <h4 class="font-semibold text-white mb-6">Legal</h4>
+            <ul class="space-y-4">
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-neon-cyan transition-colors"
+                  >Privacidad</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-neon-cyan transition-colors"
+                  >Terminos</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-neon-cyan transition-colors"
+                  >Cookies</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-neon-cyan transition-colors"
+                  >Contacto</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Bottom -->
+        <div
+          class="pt-8 border-t border-dark-border flex flex-col md:flex-row justify-between items-center gap-4"
+        >
+          <p class="text-gray-500 text-sm">
+            2024 Humana Politicas Digitales. Todos los derechos reservados.
+          </p>
+          <p class="text-gray-500 text-sm">
+            Hecho con <span class="text-neon-cyan">tecnologia</span> y
+            <span class="text-neon-purple">amor</span> en Colombia
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- JavaScript para el menu movil -->
+    <script>
+      const menuBtn = document.getElementById("menuBtn");
+      const closeMenu = document.getElementById("closeMenu");
+      const mobileMenu = document.getElementById("mobileMenu");
+
+      menuBtn.addEventListener("click", () => {
+        mobileMenu.classList.add("active");
+      });
+
+      closeMenu.addEventListener("click", () => {
+        mobileMenu.classList.remove("active");
+      });
+
+      // Cerrar menu al hacer click en un enlace
+      const mobileLinks = mobileMenu.querySelectorAll("a");
+      mobileLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+          mobileMenu.classList.remove("active");
+        });
+      });
+
+      // Smooth scroll
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
